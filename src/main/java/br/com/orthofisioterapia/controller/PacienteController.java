@@ -27,7 +27,7 @@ public class PacienteController {
 	
 	
 	/*Busca TODOS os pacientes*/
-	@GetMapping
+	@RequestMapping(value = "/list" , method = RequestMethod.GET)
 	public List<Paciente> findAll(){
 		
 		System.out.println("Pacientes");
@@ -47,16 +47,19 @@ public class PacienteController {
 	
 	/*Inserir um novo Paciente*/
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/create",method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Paciente paciente){
+		
 		 pacienteService.insert(paciente);
 		 
 		 URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 					.path("/{id}").buildAndExpand(paciente.getIdPaciente()).toUri();
+		 
 			return ResponseEntity.created(uri).build();	
 	}
 	
-	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+		
+	@RequestMapping(value="/delete/{id}",method = RequestMethod.DELETE)
 	public void delete(@PathVariable Long id) {
 		pacienteService.delete(id);
 	}

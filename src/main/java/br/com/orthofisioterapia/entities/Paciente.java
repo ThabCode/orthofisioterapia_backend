@@ -3,8 +3,14 @@ package br.com.orthofisioterapia.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,14 +25,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
- 
+import lombok.RequiredArgsConstructor;
+
+
+//@Builder
 @Table(name="paciente")
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Paciente implements Serializable{
 	 
 	private static final long serialVersionUID = 1L;
@@ -38,7 +46,7 @@ public class Paciente implements Serializable{
 	private String emailPaciente;
 	private String cpfPaciente;
 	private LocalDate dataNasc;
-	
+		
 	@CreatedDate
 	private Instant criadoEm;
 	
@@ -46,6 +54,31 @@ public class Paciente implements Serializable{
 	@JoinColumn(name = "id_tipo_paciente")
     private TipoPaciente tipoPaciente;
 	
+	//@JsonIgnore
+	private String senha;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="Role")
+	private Set<Integer> roles = new HashSet<>();
+	
+	
+	public Paciente() {
+		addRole(Role.PACIENTE);
+}
+
+	
+	
+	public Set<Role> getRoles(){
+			return roles
+					.stream()
+					.map(x -> Role.toEnum(x))
+						.collect(Collectors.toSet());
+		}
+
+	public void addRole(Role role){
+		roles.add(role.getCod());
+}
+
     /*
 	public  Paciente() {}
 

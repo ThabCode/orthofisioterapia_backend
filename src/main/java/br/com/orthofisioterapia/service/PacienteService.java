@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ public class PacienteService {
 	
 	@Autowired
 	PacienteRepository pacienteRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	
 	/* Busca todos os pacientes*/
@@ -36,8 +40,18 @@ public class PacienteService {
 	
 	/*Cria um paciente*/
 	public Paciente insert(Paciente obj) {
-		obj.setIdPaciente(null);
-		return obj = pacienteRepository.save(obj);
+		Paciente paciente = new Paciente();
+		paciente.setIdPaciente(null);
+		paciente.setCpfPaciente(obj.getCpfPaciente());
+		paciente.setCriadoEm(obj.getCriadoEm());
+		paciente.setDataNasc(obj.getDataNasc());
+		paciente.setEmailPaciente(obj.getEmailPaciente());
+		paciente.setNomePaciente(obj.getNomePaciente());
+		paciente.setSenha(pe.encode(obj.getSenha()));
+		paciente.setTipoPaciente(obj.getTipoPaciente());
+		
+		
+		return obj = pacienteRepository.save(paciente);
 		 
 	}
 	
