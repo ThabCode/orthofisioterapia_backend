@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.orthofisioterapia.entities.Paciente;
 import br.com.orthofisioterapia.repository.PacienteRepository;
+import br.com.orthofisioterapia.security.UserSS;
 import br.com.orthofisioterapia.service.exceptions.DatabaseException;
+import br.com.orthofisioterapia.service.exceptions.ObjectNotFoundException;
 import br.com.orthofisioterapia.service.exceptions.ResourceNotFoundException;
 
 @Service
@@ -37,6 +39,20 @@ public class PacienteService {
 			return pacienteRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado! Id = " + id));
 	}
+	
+
+	public Paciente findByEmailPaciente(String email) {
+		
+		
+		  
+		  Paciente obj = pacienteRepository.findByEmailPaciente(email);
+			 	
+		  if (obj == null) {
+			  	throw new ObjectNotFoundException( "Objeto não encontrado! Id " + obj.getIdPaciente() + ", Tipo: " +Paciente.class.getName());
+		  }	
+		    return obj;
+		}
+
 	
 	/*Cria um paciente*/
 	public Paciente insert(Paciente obj) {
