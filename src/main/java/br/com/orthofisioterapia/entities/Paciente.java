@@ -21,11 +21,8 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 
 //@Builder

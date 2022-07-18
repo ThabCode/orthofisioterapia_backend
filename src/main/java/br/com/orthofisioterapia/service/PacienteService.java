@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.orthofisioterapia.entities.Paciente;
 import br.com.orthofisioterapia.repository.PacienteRepository;
-import br.com.orthofisioterapia.security.UserSS;
 import br.com.orthofisioterapia.service.exceptions.DatabaseException;
 import br.com.orthofisioterapia.service.exceptions.ObjectNotFoundException;
 import br.com.orthofisioterapia.service.exceptions.ResourceNotFoundException;
@@ -24,6 +23,8 @@ public class PacienteService {
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
+
+	private Paciente obj;
 	
 	
 	/* Busca todos os pacientes*/
@@ -45,7 +46,7 @@ public class PacienteService {
 		
 		
 		  
-		  Paciente obj = pacienteRepository.findByEmailPaciente(email);
+		  obj = pacienteRepository.findByEmailPaciente(email);
 			 	
 		  if (obj == null) {
 			  	throw new ObjectNotFoundException( "Objeto não encontrado! Id " + obj.getIdPaciente() + ", Tipo: " +Paciente.class.getName());
