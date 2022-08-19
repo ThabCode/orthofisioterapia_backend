@@ -45,7 +45,7 @@ public class PacienteController {
 	
 	/*Inserir um novo Paciente*/
 	
-	@RequestMapping(value = "/create",method = RequestMethod.POST)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Paciente paciente){
 		
 		 pacienteService.insert(paciente);

@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.com.orthofisioterapia.security.JWTAuthenticationFilter;
+import br.com.orthofisioterapia.security.JWTAuthorizationFilter;
 import br.com.orthofisioterapia.security.JWTUtil;
 
 @EnableWebSecurity
@@ -61,15 +62,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		.antMatchers(HttpMethod.GET,PUBLIC_MATCHERS)
 				.permitAll()
-		.antMatchers(HttpMethod.DELETE,PUBLIC_MATCHERS_DELETE)
-				.permitAll()
+//		.antMatchers(HttpMethod.DELETE,PUBLIC_MATCHERS_DELETE).permitAll()
 		.antMatchers(HttpMethod.GET,PUBLIC_MATCHERS_LIST)
 				.permitAll()
-		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST)
-				.permitAll().anyRequest().authenticated();
-		
-		 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+				.anyRequest().authenticated();
 		 http.addFilter(new  JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		 http.addFilter(new JWTAuthorizationFilter( authenticationManager(), jwtUtil,userDetailsService));
+		 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
 	}
 	
 	@Override

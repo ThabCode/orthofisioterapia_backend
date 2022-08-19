@@ -2,7 +2,7 @@
 	INSERT INTO `tipo_paciente` (`id_tipo_paciente`, `nome_tipo_paciente`) VALUES (2, 'Convenio');
 	INSERT INTO `tipo_paciente` (`id_tipo_paciente`, `nome_tipo_paciente`) VALUES (3, 'Particular');
 		
-	INSERT INTO `paciente` (`id_paciente`, `cpf_paciente`, `criado_em`, `data_nasc`, `email_paciente`, `senha`,`nome_paciente`, `id_tipo_paciente`) VALUES ('001', '01203855389', '2022-07-05', '1987-09-06', 'abmael_ninha@hotmail.com','123', 'Abmael de Lima Ferreira', 1);
+	INSERT INTO `paciente` (`id_paciente`, `cpf_paciente`, `criado_em`, `data_nasc`, `email_paciente`, `senha`,`nome_paciente`, `id_tipo_paciente`) VALUES ('001', '01203855389', '2022-07-05', '1987-09-06', 'abmael_ninha@hotmail.com','$2a$10$MpDoWzouPn/XhML1M8T1Ku1dLXT5HuW2gG5xXbJjLu7OFQzIgYabK', 'Abmael de Lima Ferreira', 1);
 	
 	INSERT INTO `role` (`paciente_id_paciente`, `roles`) values (001, 1);
 	
