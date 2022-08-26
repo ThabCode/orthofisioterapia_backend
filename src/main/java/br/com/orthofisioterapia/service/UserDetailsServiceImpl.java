@@ -16,7 +16,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private PacienteRepository repo;
 
-
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		
@@ -27,7 +26,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		return new UserSS(pac.getIdPaciente(), pac.getEmailPaciente(), pac.getSenha(), pac.getRoles());
 	}
-
-
-
 }
