@@ -33,21 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/h2/**"
 	};
 	
-	private static final String[] PUBLIC_MATCHERS_POST = {
-			
-			"/api/v1/pacientes/create"
-			
-	};
-	
 	private static final String[] PUBLIC_MATCHERS_LIST = {
 			
 			"/api/v1/pacientes/list"
 	};
 	
-	private static final String[] PUBLIC_MATCHERS_DELETE = {
-			
-			"/api/v1/pacientes/delete/**"
-	};
+	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
