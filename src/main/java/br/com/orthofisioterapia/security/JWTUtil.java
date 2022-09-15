@@ -1,6 +1,8 @@
 package br.com.orthofisioterapia.security;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,12 +20,15 @@ public class JWTUtil {
 	@Value("${jwt.expiration}") 
 	private Long expiration;
 	
-	public String generateToken(String username) {
+	
+		
+	public String generateToken( String username, String roles) {
 		return Jwts.builder()
 			.setSubject(username)
+			.claim("roles", roles) //informação extra ("chave", valor)
 			.setExpiration(new Date(System.currentTimeMillis() + expiration))
 			.signWith(SignatureAlgorithm.HS512, secret.getBytes() )
-		.compact();
+			.compact();
 		}
 	
 	

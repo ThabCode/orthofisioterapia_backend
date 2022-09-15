@@ -30,8 +30,6 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-//@NoArgsConstructor
-@AllArgsConstructor
 public class Paciente implements Serializable{
 	 
 	private static final long serialVersionUID = 1L;
@@ -52,7 +50,7 @@ public class Paciente implements Serializable{
     private TipoPaciente tipoPaciente;
 	
 	//@JsonIgnore
-	private String senha;
+	private String password;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="Role")
@@ -76,11 +74,10 @@ public class Paciente implements Serializable{
 		roles.add(role.getCod());
 }
 
-    /*
-	public  Paciente() {}
+   
 
 	public Paciente(Long idPaciente, String nomePaciente, String emailPaciente, String cpfPaciente, LocalDate dataNasc,
-			Instant criadoEm, TipoPaciente tipoPaciente) {
+			Instant criadoEm, TipoPaciente tipoPaciente, String password) {
 		super();
 		this.idPaciente = idPaciente;
 		this.nomePaciente = nomePaciente;
@@ -89,6 +86,9 @@ public class Paciente implements Serializable{
 		this.dataNasc = dataNasc;
 		this.criadoEm = criadoEm;
 		this.tipoPaciente = tipoPaciente;
+		this.password = password;
+		addRole(Role.PACIENTE);
+
 	}
-	*/
+	
 }

@@ -64,7 +64,7 @@ public class PacienteService {
 		paciente.setDataNasc(obj.getDataNasc());
 		paciente.setEmailPaciente(obj.getEmailPaciente());
 		paciente.setNomePaciente(obj.getNomePaciente());
-		paciente.setSenha(pe.encode(obj.getSenha()));
+		paciente.setPassword(pe.encode(obj.getPassword()));
 		paciente.setTipoPaciente(obj.getTipoPaciente());
 		
 		

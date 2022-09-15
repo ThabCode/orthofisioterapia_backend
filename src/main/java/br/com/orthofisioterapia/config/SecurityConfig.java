@@ -30,13 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final String[] PUBLIC_MATCHERS = {
 			
-			"/h2/**"
-	};
-	
-	private static final String[] PUBLIC_MATCHERS_LIST = {
-			
+			"/h2/**",
 			"/api/v1/pacientes/list"
 	};
+	
+	
 	
 	
 	
@@ -46,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and().csrf().disable()
 		.authorizeRequests()
 		.antMatchers(HttpMethod.GET,PUBLIC_MATCHERS).permitAll()
-		.antMatchers(HttpMethod.GET,PUBLIC_MATCHERS_LIST).permitAll()
-				.anyRequest().authenticated();
+		.antMatchers(HttpMethod.POST, "/login").permitAll()
+			.anyRequest().authenticated();
 		
 		 http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		 http.addFilter(new JWTAuthorizationFilter( authenticationManager(), jwtUtil,userDetailsService));
@@ -62,9 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 
-	final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-		return source;
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+			return source;
 	}
 	
 	@Bean
