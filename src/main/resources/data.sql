@@ -2,7 +2,11 @@
 	INSERT INTO `tipo_paciente` (`id_tipo_paciente`, `nome_tipo_paciente`) VALUES (2, 'Convenio');
 	INSERT INTO `tipo_paciente` (`id_tipo_paciente`, `nome_tipo_paciente`) VALUES (3, 'Particular');
 		
+<<<<<<< HEAD
 	INSERT INTO `paciente` (`id_paciente`, `cpf_paciente`, `criado_em`, `data_nasc`, `email_paciente`, `password`,`nome_paciente`, `id_tipo_paciente`) VALUES ('001', '01203855389', '2022-07-05', '1987-09-06', 'abmael_ninha@hotmail.com','$2a$10$MpDoWzouPn/XhML1M8T1Ku1dLXT5HuW2gG5xXbJjLu7OFQzIgYabK', 'Abmael de Lima Ferreira', 1);
+=======
+	INSERT INTO `it2jswq3zfhe00uv`.`paciente` (`id_paciente`, `cpf_paciente`, `criado_em`, `data_nasc`, `email_paciente`, `password`,`nome_paciente`, `id_tipo_paciente`) VALUES ('001', '01203855389', '2022-07-05', '1987-09-06', 'administrador@thabcode.com','$2a$10$DmwnoTnXLGMZfo9cYjsj6.55Kp2E0eDvCNcWymO8rsfw/VQbh15Ca', 'admin', 1);
+>>>>>>> dev
 	
 	INSERT INTO `role` (`paciente_id_paciente`, `roles`) values (001, 1);
 	
