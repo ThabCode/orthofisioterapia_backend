@@ -82,19 +82,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-				
-<<<<<<< HEAD
-					<excludes>
-=======
-						<source>8</source>
-						<target>8</target>
-						<excludes>
->>>>>>> dev
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
