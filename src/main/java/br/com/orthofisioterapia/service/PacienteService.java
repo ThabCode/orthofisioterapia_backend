@@ -78,7 +78,7 @@ public class PacienteService {
 				
 		}  catch (EmptyResultDataAccessException e) {
 			
-			throw new ResourceNotFoundException("Cliente não encontrado! Id = " + id);
+			throw new ResourceNotFoundException("Paciente não encontrado! Id = " + id);
 		}
 		catch (DataIntegrityViolationException e) {
 			
