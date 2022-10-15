@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS = {
 			
 			"/h2/**",
-			"/api/v1/pacientes/"
+			"/api/v1/pacientes/*"
 	};
 	
 	
