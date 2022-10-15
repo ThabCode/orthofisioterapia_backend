@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.orthofisioterapia.entities.Paciente;
+import br.com.orthofisioterapia.entities.Role;
 import br.com.orthofisioterapia.repository.PacienteRepository;
+import br.com.orthofisioterapia.security.UserSS;
+import br.com.orthofisioterapia.service.exceptions.AuthorizationException;
 import br.com.orthofisioterapia.service.exceptions.DatabaseException;
 import br.com.orthofisioterapia.service.exceptions.ObjectNotFoundException;
 import br.com.orthofisioterapia.service.exceptions.ResourceNotFoundException;
@@ -30,13 +33,23 @@ public class PacienteService {
 	/* Busca todos os pacientes*/
 	public List<Paciente> findAll(){
 		
+		UserSS user = UserService.authenticated();
+		//if(user == null || !user.hasRole(Role.ADMIN) && !id.equals(user.getId()))
+		
 		return pacienteRepository.findAll();
 		
 	}
 	
+	
 	/* Busca os pacientes por ID*/
 	@Transactional(readOnly = true)
 	public Paciente findById(Long id) {
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Role.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+	
+		
 			return pacienteRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado! Id = " + id));
 	}
