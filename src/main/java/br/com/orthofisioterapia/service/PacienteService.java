@@ -44,14 +44,18 @@ public class PacienteService {
 	/* Busca os pacientes por ID*/
 	@Transactional(readOnly = true)
 	public Paciente findById(Long id) {
+		
+		//Busca o usuario logado
 		UserSS user = UserService.authenticated();
+		
+		/*Verifica se o usuario for nulo ou for diferente de Role ADMIN e diferente do usuario logado*/
 		if(user == null || !user.hasRole(Role.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Acesso negado");
 		}
 	
 		
 			return pacienteRepository.findById(id)
-					.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado! Id = " + id));
+					.orElseThrow(() -> new ObjectNotFoundException("Paciente não encontrado! ou não existe com o Id = " + id));
 	}
 	
 
