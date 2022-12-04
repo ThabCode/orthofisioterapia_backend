@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.orthofisioterapia.dto.PacienteDTO;
 import br.com.orthofisioterapia.entities.Paciente;
 import br.com.orthofisioterapia.service.PacienteService;
 
@@ -34,7 +35,7 @@ public class PacienteController {
 	
 	/*Busca  os pacientes POR  id*/
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Paciente> findById(@PathVariable Long id){
+	public ResponseEntity<Paciente> findById(@PathVariable Integer id){
 		
 		Paciente paciente = pacienteService.findById(id);
 		
@@ -43,22 +44,25 @@ public class PacienteController {
 	
 	/*Inserir um novo Paciente*/
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	//@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Paciente paciente){
+	public ResponseEntity<PacienteDTO> insert(@RequestBody PacienteDTO dto){
 		
-		 pacienteService.insert(paciente);
+		dto =  pacienteService.insert(dto);
 		 
-		 URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-					.path("/{id}").buildAndExpand(paciente.getIdPaciente()).toUri();
+		 URI uri = ServletUriComponentsBuilder
+				 .fromCurrentRequest()
+				 .path("/{id}")
+				 .buildAndExpand(dto.getIdPaciente())
+				 .toUri();
 		 
-			return ResponseEntity.created(uri).build();	
+			return ResponseEntity.created(uri).body(dto);	
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	//@PreAuthorize("hasAnyRole('ADMIN')")
 	@ResponseStatus
 	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
-	public void delete(@PathVariable Long id) {
+	public void delete(@PathVariable Integer id) {
 		pacienteService.delete(id);
 	}
 }

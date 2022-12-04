@@ -1,16 +1,19 @@
 package br.com.orthofisioterapia.service;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.orthofisioterapia.dto.PacienteDTO;
 import br.com.orthofisioterapia.entities.Paciente;
 import br.com.orthofisioterapia.entities.Role;
+import br.com.orthofisioterapia.mapper.PacienteMapper;
 import br.com.orthofisioterapia.repository.PacienteRepository;
 import br.com.orthofisioterapia.security.UserSS;
 import br.com.orthofisioterapia.service.exceptions.AuthorizationException;
@@ -24,17 +27,21 @@ public class PacienteService {
 	@Autowired
 	PacienteRepository pacienteRepository;
 	
+//	@Autowired
+//	private BCryptPasswordEncoder pe;
+//	
 	@Autowired
-	private BCryptPasswordEncoder pe;
+	private PacienteMapper pacienteMapper;
 
-	private Paciente obj;
+	//private Paciente obj;
 	
 	
 	/* Busca todos os pacientes*/
 	public List<Paciente> findAll(){
 		
-		UserSS user = UserService.authenticated();
+		//UserSS user = UserService.authenticated();
 		//if(user == null || !user.hasRole(Role.ADMIN) && !id.equals(user.getId()))
+		System.out.println("Listando");
 		
 		return pacienteRepository.findAll();
 		
@@ -43,15 +50,15 @@ public class PacienteService {
 	
 	/* Busca os pacientes por ID*/
 	@Transactional(readOnly = true)
-	public Paciente findById(Long id) {
+	public Paciente findById(Integer id) {
 		
 		//Busca o usuario logado
-		UserSS user = UserService.authenticated();
+		//UserSS user = UserService.authenticated();
 		
 		/*Verifica se o usuario for nulo ou for diferente de Role ADMIN e diferente do usuario logado*/
-		if(user == null || !user.hasRole(Role.ADMIN) && !id.equals(user.getId())) {
-			throw new AuthorizationException("Acesso negado");
-		}
+//		if(user == null || !user.hasRole(Role.ADMIN) && !id.equals(user.getId())) {
+//			throw new AuthorizationException("Acesso negado");
+//		}
 	
 		
 			return pacienteRepository.findById(id)
@@ -63,33 +70,43 @@ public class PacienteService {
 		
 		
 		  
-		  obj = pacienteRepository.findByEmailPaciente(email);
+		  Paciente obj = pacienteRepository.findByEmailPaciente(email);
 			 	
 		  if (obj == null) {
 			  	throw new ObjectNotFoundException( "Objeto não encontrado! Id " + obj.getIdPaciente() + ", Tipo: " +Paciente.class.getName());
-		  }	
-		    return obj;
+		  }
+		return obj;	
 		}
 
 	
 	/*Cria um paciente*/
-	public Paciente insert(Paciente obj) {
-		Paciente paciente = new Paciente();
-		paciente.setIdPaciente(null);
-		paciente.setCpfPaciente(obj.getCpfPaciente());
-		paciente.setCriadoEm(obj.getCriadoEm());
-		paciente.setDataNasc(obj.getDataNasc());
-		paciente.setEmailPaciente(obj.getEmailPaciente());
-		paciente.setNomePaciente(obj.getNomePaciente());
-		paciente.setPassword(pe.encode(obj.getPassword()));
-		paciente.setTipoPaciente(obj.getTipoPaciente());
+//	public Paciente insert(Paciente obj) {
+//		Paciente paciente = new Paciente();
+//		paciente.
+//		paciente.setIdPaciente(null);
+//		paciente.setCpfPaciente(obj.getCpfPaciente());
+//		paciente.setCriadoEm(obj.getCriadoEm());
+//		paciente.setDataNasc(obj.getDataNasc());
+//		paciente.setEmailPaciente(obj.getEmailPaciente());
+//		paciente.setNomePaciente(obj.getNomePaciente());
+//		paciente.setPassword(pe.encode(obj.getPassword()));
+//		paciente.setTipoPaciente(obj.getTipoPaciente());
+//		
+//		
+//		return obj = pacienteRepository.save(paciente);
+//		 
+//	}
+	
+	public PacienteDTO insert(PacienteDTO dto) {
 		
+		dto.setCriadoEm(Instant.now());
+		System.out.println("Chamou o insert no service");
 		
-		return obj = pacienteRepository.save(paciente);
+		return this.pacienteMapper.toDTO(pacienteRepository.save(pacienteMapper.toEntity(dto)));
 		 
 	}
 	
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		try {
 				pacienteRepository.deleteById(id);
 				

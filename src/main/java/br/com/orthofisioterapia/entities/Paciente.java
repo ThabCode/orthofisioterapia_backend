@@ -8,59 +8,56 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import br.com.orthofisioterapia.entities.enums.TipoPaciente;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-
-//@Builder
-@Table(name="paciente")
 @Entity
+@Table(name="paciente")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Paciente implements Serializable{
 	 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	private Long idPaciente;
+	private Integer idPaciente;
 	private String nomePaciente;
 	private String emailPaciente;
 	private String cpfPaciente;
 	private LocalDate dataNasc;
+	private Integer tipo;
+	//@JsonIgnore
+	private String password;
 		
+	
+	//@Column(columnDefinition = "TIMESTAP WITHOUT TIME ZONE")
 	@CreatedDate
 	private Instant criadoEm;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_tipo_paciente")
-    private TipoPaciente tipoPaciente;
-	
-	//@JsonIgnore
-	private String password;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="Role")
 	private Set<Integer> roles = new HashSet<>();
 	
-	
-	public Paciente() {
-		addRole(Role.PACIENTE);
-}
-
 	
 	
 	public Set<Role> getRoles(){
@@ -72,23 +69,19 @@ public class Paciente implements Serializable{
 
 	public void addRole(Role role){
 		roles.add(role.getCod());
-}
+		}
 
-   
-
-	public Paciente(Long idPaciente, String nomePaciente, String emailPaciente, String cpfPaciente, LocalDate dataNasc,
-			Instant criadoEm, TipoPaciente tipoPaciente, String password) {
-		super();
-		this.idPaciente = idPaciente;
-		this.nomePaciente = nomePaciente;
-		this.emailPaciente = emailPaciente;
-		this.cpfPaciente = cpfPaciente;
-		this.dataNasc = dataNasc;
-		this.criadoEm = criadoEm;
-		this.tipoPaciente = tipoPaciente;
-		this.password = password;
-		addRole(Role.PACIENTE);
-
+		
+	
+	public TipoPaciente getTipo() {
+		return TipoPaciente.toEnum(tipo);
+	}
+	
+	public void setTipo(TipoPaciente tipo) {
+		if(tipo != null) {
+			this.tipo = tipo.getCod();
+		}
+		
 	}
 	
 }

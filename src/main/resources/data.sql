@@ -1,8 +1,4 @@
-	INSERT INTO `tipo_paciente` (`id_tipo_paciente`, `nome_tipo_paciente`) VALUES (1, 'Local');
-	INSERT INTO `tipo_paciente` (`id_tipo_paciente`, `nome_tipo_paciente`) VALUES (2, 'Convenio');
-	INSERT INTO `tipo_paciente` (`id_tipo_paciente`, `nome_tipo_paciente`) VALUES (3, 'Particular');
-		
-	INSERT INTO `paciente` (`id_paciente`, `cpf_paciente`, `criado_em`, `data_nasc`, `email_paciente`, `password`,`nome_paciente`, `id_tipo_paciente`) VALUES ('001', '01203855389', '2022-07-05', '1987-09-06', 'administrador@thabcode.com','$2a$10$MpDoWzouPn/XhML1M8T1Ku1dLXT5HuW2gG5xXbJjLu7OFQzIgYabK', 'admin', 1);
+	INSERT INTO `paciente` (`id_paciente`, `nome_paciente`, `email_paciente`, `cpf_paciente`, `data_nasc`, `tipo`,   `password`, `criado_em` ) VALUES ('001','admin','administrador@thabcode.com', '01203855389', '1987-09-06', '1', '$2a$10$MpDoWzouPn/XhML1M8T1Ku1dLXT5HuW2gG5xXbJjLu7OFQzIgYabK', '2022-07-05');
 	
 	INSERT INTO `role` (`paciente_id_paciente`, `roles`) values (001, 1);
 	

@@ -12,12 +12,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Table(name="tipo_paciente")
-@Entity
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Builder
-public class TipoPaciente implements Serializable{
+//@Table(name="tipo_paciente")
+//@Entity
+//@Data
+//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+//@Builder
+public class TipoPacienteAntigo implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -26,9 +26,9 @@ public class TipoPaciente implements Serializable{
 	private Long idTipoPaciente;
 	private String nomeTipoPaciente;
 	
-	public TipoPaciente() {}
+	public TipoPacienteAntigo() {}
 
-	public TipoPaciente(Long idTipoPaciente, String nomeTipoPaciente) {
+	public TipoPacienteAntigo(Long idTipoPaciente, String nomeTipoPaciente) {
 		super();
 		this.idTipoPaciente = idTipoPaciente;
 		this.nomeTipoPaciente = nomeTipoPaciente;

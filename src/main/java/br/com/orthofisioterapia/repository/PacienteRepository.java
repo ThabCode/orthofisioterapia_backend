@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.orthofisioterapia.entities.Paciente;
 
-public interface PacienteRepository extends JpaRepository<Paciente, Long>{
+public interface PacienteRepository extends JpaRepository<Paciente, Integer>{
 	
 	@Transactional(readOnly=true)
 	Paciente findByEmailPaciente(String email);
